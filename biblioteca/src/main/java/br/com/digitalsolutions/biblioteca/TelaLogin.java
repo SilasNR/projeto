@@ -4,17 +4,66 @@
  */
 package br.com.digitalsolutions.biblioteca;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import jdk.jfr.Event;
+
 /**
  *
  * @author 823215404
  */
 public class TelaLogin extends javax.swing.JFrame {
-
+    String usuario, senha;
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
+        
+        
+        
+        btnEntrar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usuario = edtUsuario.getText();
+                senha = edtSenha.getText();
+                
+                if ( usuario.length() != 0 ){
+                    //var use = new Usuario();
+                    var UsuarioDB = new UsuarioDB();
+                    
+                    
+                    try{
+                        UsuarioDB.dadosUsuario(usuario,senha);
+                        boolean teste = false;
+                        if(UsuarioDB.getNome().equals(usuario) && UsuarioDB.getSenha().equals(senha)){
+                            teste = true;
+                        }
+                        
+                        if(teste){
+                            JOptionPane.showMessageDialog(null,"Login bem sucedido!");
+                        }else{
+                            JOptionPane.showMessageDialog(null,"Usuario ou senha incorretos \n");
+                        }
+                        
+                    }catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null,"Erro de conexão \n\n" + ex);
+                    }
+                    
+                    /*try {
+                        //JOptionPane.showMessageDialog(null,"usuario : "+
+                          //      UsuarioBD.procurar_usuario(usuario) + "\nSenha : "+ senha);
+                    } catch (Exception ex) {
+                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }*/
+                }
+            }
+        });
     }
 
     /**
@@ -185,7 +234,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 new TelaLogin().setVisible(true);
             }
         });
+            
+            
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;

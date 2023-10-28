@@ -15,7 +15,8 @@ public class TesteConexao {
         try{
             var factory = new ConnectionFactory();
             var minhaConexao = factory.conectar();
-            System.out.println("Conectou!!");
+            JOptionPane.showMessageDialog(
+                    null,"Conectou!!");
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(
